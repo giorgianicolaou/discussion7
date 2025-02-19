@@ -16,8 +16,798 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+            <!-- Slide 1: Title -->
+            <section>
+                <h1>Discussion 7</h1>
+                <p>DSC 106: Introduction to Data Visualization</p>
+            </section>
+
+            <!-- Slide 1: Title -->
+            <section>
+                <h1>JavaScript Execution Order</h1>
+                <p>Understanding function and variable execution</p>
+            </section>
+
+            <!-- Slide 2: Code Explanation -->
+            <section>
+                <h2>Example 1: Function Execution Order</h2>
+                <pre><code data-trim data-line-numbers="1-9" class="javascript">
+console.log("Start");
+
+function greet() {
+    console.log("Hello!");
+}
+
+greet();
+
+console.log("End");
+                </code></pre>
+            </section>
+
+            <!-- Slide 3: Execution Order Breakdown -->
+            <section>
+                <h2>Execution Order</h2>
+                <ul>
+                    <li><strong>Step 1:</strong> "Start" is logged.</li>
+                    <li><strong>Step 2:</strong> `greet()` is called.</li>
+                    <li><strong>Step 3:</strong> "Hello!" is logged.</li>
+                    <li><strong>Step 4:</strong> `greet()` finishes execution.</li>
+                    <li><strong>Step 5:</strong> "End" is logged.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: Run Example -->
+            <section>
+                <h2>Run Example</h2>
+                <button onclick="runExample()">Run Code</button>
+                <div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px;"></div>
+                <script>
+                    function runExample() {
+                        const outputDiv = document.getElementById("output");
+                        outputDiv.innerHTML = ""; // Clear previous output
+
+                        console.log("Start");
+                        outputDiv.innerHTML += "<p>Start</p>";
+
+                        function greet() {
+                            console.log("Hello!");
+                            outputDiv.innerHTML += "<p>Hello!</p>";
+                        }
+
+                        greet();
+
+                        console.log("End");
+                        outputDiv.innerHTML += "<p>End</p>";
+                    }
+                </script>
+
+			</section>	            <!-- Slide 1: Title -->
+            <section>
+                <h1>Hoisting and Variable Scope</h1>
+                <p>Understanding how JavaScript handles variables</p>
+            </section>
+
+            <!-- Slide 2: Hoisting Example -->
+            <section>
+                <h2>Example 2: Hoisting in JavaScript</h2>
+                <pre><code data-trim data-line-numbers="1-6" class="javascript">
+console.log(myVar); // undefined
+var myVar = 10;
+console.log(myVar); // 10
+                </code></pre>
+            </section>
+
+            <!-- Slide 3: Behind-the-Scenes Execution -->
+            <section>
+                <h2>What Happens Internally?</h2>
+                <pre><code data-trim data-line-numbers="1-5" class="javascript">
+// JavaScript Hoists Declarations
+var myVar;
+console.log(myVar); // undefined
+myVar = 10;
+console.log(myVar); // 10
+                </code></pre>
+            </section>
+
+            <!-- Slide 4: Hoisting and let/const -->
+            <section>
+                <h2>Hoisting with let & const</h2>
+                <pre><code data-trim data-line-numbers="1-4" class="javascript">
+console.log(myLet); // ReferenceError
+let myLet = 20;
+console.log(myLet);
+                </code></pre>
+                <p><strong>Why?</strong> `let` and `const` do not initialize until execution reaches the declaration (Temporal Dead Zone).</p>
+            </section>
+
+            <!-- Slide 5: Execution Order Breakdown -->
+            <section>
+                <h2>Execution Order</h2>
+                <ul>
+                    <li><strong>Step 1:</strong> `var` is hoisted but uninitialized (`undefined`).</li>
+                    <li><strong>Step 2:</strong> `console.log(myVar)` prints `undefined`.</li>
+                    <li><strong>Step 3:</strong> `myVar` is assigned `10`.</li>
+                    <li><strong>Step 4:</strong> `console.log(myVar)` prints `10`.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 6: Run Example -->
+            <section>
+                <h2>Run Example</h2>
+                <button onclick="runHoistingExample()">Run Code</button>
+                <div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px;"></div>
+                <script>
+                    function runHoistingExample() {
+                        const outputDiv = document.getElementById("output");
+                        outputDiv.innerHTML = ""; // Clear previous output
+
+                        try {
+                            console.log(myVar);
+                            outputDiv.innerHTML += "<p>undefined (hoisted)</p>";
+
+                            var myVar = 10;
+                            console.log(myVar);
+                            outputDiv.innerHTML += "<p>10</p>";
+                        } catch (error) {
+                            outputDiv.innerHTML += `<p style="color: red;">${error}</p>`;
+                        }
+                    }
+                </script>
+				</section>
+            <!-- Slide 1: Title -->
+            <section>
+                <h1>Order of Function Execution</h1>
+                <p>Understanding the Call Stack</p>
+            </section>
+
+            <!-- Slide 2: Example Code -->
+            <section>
+                <h2>Example 3: Call Stack Execution</h2>
+                <pre><code data-trim data-line-numbers="1-13" class="javascript">
+function first() {
+    console.log("First");
+    second();
+    console.log("First End");
+}
+
+function second() {
+    console.log("Second");
+}
+
+console.log("Start");
+first();
+console.log("End");
+                </code></pre>
+            </section>
+
+            <!-- Slide 3: Step-by-Step Execution -->
+            <section>
+                <h2>How the Call Stack Works</h2>
+                <ul>
+                    <li><strong>Step 1:</strong> `"Start"` is logged.</li>
+                    <li><strong>Step 2:</strong> `first()` is called → added to the Call Stack.</li>
+                    <li><strong>Step 3:</strong> `"First"` is logged.</li>
+                    <li><strong>Step 4:</strong> `second()` is called → added to the Call Stack.</li>
+                    <li><strong>Step 5:</strong> `"Second"` is logged, `second()` finishes.</li>
+                    <li><strong>Step 6:</strong> `"First End"` is logged, `first()` finishes.</li>
+                    <li><strong>Step 7:</strong> `"End"` is logged.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: Call Stack Visualization -->
+            <section>
+                <h2>Call Stack in Action</h2>
+                <p>The Call Stack follows <strong>Last-In, First-Out (LIFO)</strong>.</p>
+                <pre><code data-trim data-line-numbers="1-5" class="javascript">
+// Stack Operations
+CALL: first() -> adds to stack
+CALL: second() -> adds to stack
+RETURN: second() -> removes from stack
+RETURN: first() -> removes from stack
+                </code></pre>
+            </section>
+
+            <!-- Slide 5: Run Example -->
+            <section>
+                <h2>Run Example</h2>
+                <button onclick="runCallStackExample()">Run Code</button>
+                <div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px;"></div>
+                <script>
+                    function runCallStackExample() {
+                        const outputDiv = document.getElementById("output");
+                        outputDiv.innerHTML = ""; // Clear previous output
+
+                        function logMessage(message) {
+                            console.log(message);
+                            outputDiv.innerHTML += `<p>${message}</p>`;
+                        }
+
+                        function first() {
+                            logMessage("First");
+                            second();
+                            logMessage("First End");
+                        }
+
+                        function second() {
+                            logMessage("Second");
+                        }
+
+                        logMessage("Start");
+                        first();
+                        logMessage("End");
+                    }
+                </script>
+            </section>		
+            <!-- Slide 1: Title -->
+            <section>
+                <h1>Order of Execution in Promises and Async Operations</h1>
+                <p>Understanding the JavaScript Event Loop</p>
+            </section>
+
+            <!-- Slide 2: Example Code -->
+            <section>
+                <h2>Example 4: Promises and Async Execution</h2>
+                <pre><code data-trim data-line-numbers="1-8" class="javascript">
+console.log("Start");
+
+setTimeout(() => console.log("Inside setTimeout"), 0);
+
+Promise.resolve().then(() => console.log("Promise resolved"));
+
+console.log("End");
+                </code></pre>
+            </section>
+
+            <!-- Slide 3: Execution Order Breakdown -->
+            <section>
+                <h2>Execution Order Breakdown</h2>
+                <ul>
+                    <li><strong>Step 1:</strong> `"Start"` is logged (synchronous code).</li>
+                    <li><strong>Step 2:</strong> `setTimeout` is called (sent to Web API).</li>
+                    <li><strong>Step 3:</strong> `Promise.resolve()` is called (sent to Microtask Queue).</li>
+                    <li><strong>Step 4:</strong> `"End"` is logged (synchronous code finishes).</li>
+                    <li><strong>Step 5:</strong> Microtask Queue executes → `"Promise resolved"` is logged.</li>
+                    <li><strong>Step 6:</strong> Macrotask Queue executes → `"Inside setTimeout"` is logged.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: JavaScript Event Loop -->
+            <section>
+                <h2>JavaScript Event Loop</h2>
+                <p>The Event Loop processes tasks in this order:</p>
+                <ol>
+                    <li>Execute all synchronous code (Call Stack).</li>
+                    <li>Process Microtask Queue (Promises, `queueMicrotask`).</li>
+                    <li>Process Macrotask Queue (`setTimeout`, `setInterval`).</li>
+                </ol>
+            </section>
+
+            <!-- Slide 5: Run Example -->
+            <section>
+                <h2>Run Example</h2>
+                <button onclick="runAsyncExample()">Run Code</button>
+                <div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px;"></div>
+                <script>
+                    function runAsyncExample() {
+                        const outputDiv = document.getElementById("output");
+                        outputDiv.innerHTML = ""; // Clear previous output
+
+                        console.log("Start");
+                        outputDiv.innerHTML += "<p>Start</p>";
+
+                        setTimeout(() => {
+                            console.log("Inside setTimeout");
+                            outputDiv.innerHTML += "<p>Inside setTimeout</p>";
+                        }, 0);
+
+                        Promise.resolve().then(() => {
+                            console.log("Promise resolved");
+                            outputDiv.innerHTML += "<p>Promise resolved</p>";
+                        });
+
+                        console.log("End");
+                        outputDiv.innerHTML += "<p>End</p>";
+                    }
+                </script>
+            </section>
+            <section>
+                <h1>Order of Execution in Data Loading</h1>
+                <p>Fetch API & Promises in JavaScript</p>
+            </section>
+
+            <!-- Slide 2: Fetch & Promises Example -->
+            <section>
+                <h2>Example 5: Fetch & Promises Execution</h2>
+                <pre><code data-trim data-line-numbers="1-9" class="javascript">
+console.log("Start");
+
+fetch("https://jsonplaceholder.typicode.com/todos/1")
+    .then(response => response.json())
+    .then(data => console.log("Data Loaded:", data));
+
+console.log("End");
+                </code></pre>
+            </section>
+
+            <!-- Slide 3: Execution Order Breakdown -->
+            <section>
+                <h2>Execution Order Breakdown</h2>
+                <ul>
+                    <li><strong>Step 1:</strong> `"Start"` is logged (synchronous execution).</li>
+                    <li><strong>Step 2:</strong> `fetch()` is called, sending request to **Web APIs**.</li>
+                    <li><strong>Step 3:</strong> `"End"` is logged (synchronous execution continues).</li>
+                    <li><strong>Step 4:</strong> Once the request completes, **Microtask Queue** processes `.then()`.</li>
+                    <li><strong>Step 5:</strong> `"Data Loaded:"` is logged with the fetched JSON response.</li>
+                </ul>
+            </section>
+
+            <!-- Slide 4: Fetch Execution in Event Loop -->
+            <section>
+                <h2>Fetch Execution in the Event Loop</h2>
+                <p>The Event Loop processes **fetch requests** as follows:</p>
+                <ol>
+                    <li>Execute **synchronous code** (Call Stack).</li>
+                    <li>Send **fetch request** to **Web API**.</li>
+                    <li>Continue executing **remaining synchronous code**.</li>
+                    <li>When fetch completes, add `.then()` callback to **Microtask Queue**.</li>
+                    <li>Execute **Microtask Queue** before Macrotasks.</li>
+                </ol>
+            </section>
+
+            <!-- Slide 5: Run Example -->
+            <section>
+                <h2>Run Example</h2>
+                <button onclick="runFetchExample()">Run Code</button>
+                <div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px;"></div>
+                <script>
+                    function runFetchExample() {
+                        const outputDiv = document.getElementById("output");
+                        outputDiv.innerHTML = ""; // Clear previous output
+
+                        console.log("Start");
+                        outputDiv.innerHTML += "<p>Start</p>";
+
+                        fetch("https://jsonplaceholder.typicode.com/todos/1")
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log("Data Loaded:", data);
+                                outputDiv.innerHTML += `<p>Data Loaded: ${JSON.stringify(data)}</p>`;
+                            });
+
+                        console.log("End");
+                        outputDiv.innerHTML += "<p>End</p>";
+                    }
+                </script>
+            </section>
+            <!-- Slide 1: Title -->
+            <section>
+                <h1>Function Structure in JavaScript</h1>
+                <p>Understanding JavaScript Function Syntax and Execution</p>
+            </section>
+
+            <!-- Slide 2: Basic Function Syntax -->
+            <section>
+                <h2>1. Basic Function Syntax</h2>
+                <pre><code data-trim data-line-numbers="1-6" class="javascript">
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+console.log(greet("Alice"));
+                </code></pre>
+                <p><strong>Key Points:</strong> Uses `function` keyword, takes parameters, and returns a value.</p>
+            </section>
+
+            <!-- Slide 3: Arrow Functions -->
+            <section>
+                <h2>2. Arrow Functions</h2>
+                <pre><code data-trim data-line-numbers="1-4" class="javascript">
+const add = (a, b) => a + b;
+
+console.log(add(2, 3)); // 5
+                </code></pre>
+                <p><strong>Why use arrow functions?</strong> Shorter syntax, lexical `this` binding.</p>
+            </section>
+
+            <!-- Slide 4: Function Expressions -->
+            <section>
+                <h2>3. Function Expressions</h2>
+                <pre><code data-trim data-line-numbers="1-6" class="javascript">
+const multiply = function(a, b) {
+    return a * b;
+};
+
+console.log(multiply(4, 5)); // 20
+                </code></pre>
+                <p><strong>Key Difference:</strong> Function expressions are assigned to variables and cannot be called before their definition.</p>
+            </section>
+
+            <!-- Slide 5: Higher-Order Functions -->
+            <section>
+                <h2>4. Higher-Order Functions</h2>
+                <pre><code data-trim data-line-numbers="1-6" class="javascript">
+function operate(a, b, operation) {
+    return operation(a, b);
+}
+
+console.log(operate(10, 5, (x, y) => x - y)); // 5
+                </code></pre>
+                <p>Functions that take other functions as arguments or return functions.</p>
+            </section>
+
+            <!-- Slide 6: IIFE (Immediately Invoked Function Expressions) -->
+            <section>
+                <h2>5. IIFE - Immediately Invoked Function Expressions</h2>
+                <pre><code data-trim data-line-numbers="1-5" class="javascript">
+(function() {
+    console.log("This function runs immediately!");
+})();
+                </code></pre>
+                <p><strong>Use Case:</strong> Avoid polluting global scope.</p>
+            </section>
+
+            <!-- Slide 7: Run Example -->
+            <section>
+                <h2>6. Run Example</h2>
+                <button onclick="runFunctionExample()" style="padding: 10px; cursor: pointer;">Run Code</button>
+                <div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px; min-height: 50px;"></div>
+
+                <script>
+                    function runFunctionExample() {
+                        let result = "";
+
+                        function greet(name) {
+                            result += `Hello, ${name}!<br>`;
+                        }
+
+                        const multiply = (a, b) => a * b;
+
+                        greet("Alice");
+                        result += `2 * 3 = ${multiply(2, 3)}`;
+
+                        document.getElementById("output").innerHTML = result;
+                    }
+                </script>
+            </section>
+			            <!-- Slide 1: Title -->
+						<section>
+							<h1>Where to Place Functions in JavaScript</h1>
+							<p>Best Practices for Structuring Code</p>
+						</section>
+			
+						<!-- Slide 2: Global vs. Local Scope -->
+						<section>
+							<h2>1. Global vs. Local Scope</h2>
+							<pre><code data-trim data-line-numbers="1-6" class="javascript">
+			// Global Function (Avoid excessive usage)
+			function globalFunction() {
+				console.log("I am global!");
+			}
+			
+			// Local Function (Scoped inside another function)
+			function localScope() {
+				function innerFunction() {
+					console.log("I am local!");
+				}
+				innerFunction();
+			}
+							</code></pre>
+							<p><strong>Best Practice:</strong> Keep functions local unless they need global access.</p>
+						</section>
+			
+						<!-- Slide 3: Separating Logic, Handlers, and API Calls -->
+						<section>
+							<h2>2. Separating Logic, Handlers, and API Calls</h2>
+							<pre><code data-trim data-line-numbers="1-10" class="javascript">
+			// Business Logic (Pure Functions)
+			function calculateTotal(price, tax) {
+				return price + (price * tax);
+			}
+			
+			// Event Handler (DOM Interaction)
+			document.getElementById("buyBtn").addEventListener("click", () => {
+				alert("Purchase successful!");
+			});
+			
+			// API Call Function
+			async function fetchData() {
+				let response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+				let data = await response.json();
+				console.log(data);
+			}
+							</code></pre>
+							<p><strong>Best Practice:</strong> Keep logic, event handlers, and API calls separate.</p>
+						</section>
+			
+						<!-- Slide 4: Using the Module Pattern -->
+						<section>
+							<h2>3. The Module Pattern</h2>
+							<pre><code data-trim data-line-numbers="1-10" class="javascript">
+			const ShoppingCart = (function() {
+				let cart = [];
+			
+				function addItem(item) {
+					cart.push(item);
+					console.log(cart);
+				}
+			
+				return {
+					add: addItem
+				};
+			})();
+			
+			ShoppingCart.add("Laptop");
+							</code></pre>
+							<p><strong>Why?</strong> Prevents polluting global scope and maintains data encapsulation.</p>
+						</section>
+			
+						<!-- Slide 5: Using ES6 Modules -->
+						<section>
+							<h2>4. Using ES6 Modules</h2>
+							<pre><code data-trim data-line-numbers="1-4" class="javascript">
+			// utils.js (Exporting Functions)
+			export function add(a, b) {
+				return a + b;
+			}
+			
+			// main.js (Importing Functions)
+			import { add } from './utils.js';
+			console.log(add(2, 3)); // 5
+							</code></pre>
+							<p><strong>Why?</strong> Helps maintain modular, reusable code.</p>
+						</section>
+			
+						<!-- Slide 6: Organizing JavaScript Files -->
+						<section>
+							<h2>5. Where to Put Functions in a Project</h2>
+							<pre><code data-trim data-line-numbers="1-6" class="javascript">
+			// File Structure
+			/project-root
+			  /js
+				/modules
+				  cart.js
+				  user.js
+				/utils
+				  helpers.js
+			  app.js
+			  index.html
+							</code></pre>
+							<p><strong>Tip:</strong> Place functions inside appropriate folders to keep code maintainable.</p>
+						</section>
+			
+						<!-- Slide 7: Run Example -->
+						<section>
+							<h2>6. Run Example</h2>
+							<button onclick="runFunctionExample()" style="padding: 10px; cursor: pointer;">Run Code</button>
+							<div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px; min-height: 50px;"></div>
+			
+							<script>
+								function runFunctionExample() {
+									let result = "";
+			
+									// Business Logic Function
+									function calculateTotal(price, tax) {
+										return price + (price * tax);
+									}
+			
+									result += `Total with tax: $${calculateTotal(100, 0.2)}<br>`;
+			
+									// API Call Simulation
+									async function fetchData() {
+										let response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+										let data = await response.json();
+										result += `Fetched Data: ${JSON.stringify(data)}`;
+										document.getElementById("output").innerHTML = result;
+									}
+			
+									fetchData();
+								}
+							</script>
+						</section>
+            <!-- Slide 1: Title -->
+            <section>
+                <h1>Common Workflow for Interactive D3.js Visualizations</h1>
+                <p>Step-by-step guide to building interactive charts</p>
+            </section>
+
+            <!-- Slide 2: Setting Up a D3 Visualization -->
+            <section>
+                <h2>1. Setting Up a D3 Visualization</h2>
+                <pre><code data-trim data-line-numbers="1-6" class="javascript">
+// Select the container and append an SVG
+const svg = d3.select("body").append("svg")
+    .attr("width", 500)
+    .attr("height", 300);
+
+console.log("SVG created!");
+                </code></pre>
+                <p><strong>Why?</strong> Every D3 visualization starts with an svg container.</p>
+            </section>
+
+            <!-- Slide 3: Binding Data to Elements -->
+            <section>
+                <h2>2. Binding Data to Elements</h2>
+                <pre><code data-trim data-line-numbers="1-7" class="javascript">
+const data = [10, 30, 50, 70, 90];
+
+// Bind data and create circles
+svg.selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("cx", d => d)
+    .attr("cy", 100)
+    .attr("r", 10)
+    .attr("fill", "blue");
+                </code></pre>
+                <p><strong>Why?</strong> D3 binds data to DOM elements dynamically.</p>
+            </section>
+
+            <!-- Slide 4: Adding Scales and Axes -->
+            <section>
+                <h2>3. Adding Scales and Axes</h2>
+                <pre><code data-trim data-line-numbers="1-8" class="javascript">
+const xScale = d3.scaleLinear()
+    .domain([0, 100])
+    .range([0, 400]);
+
+const xAxis = d3.axisBottom(xScale);
+
+svg.append("g")
+    .attr("transform", "translate(50, 200)")
+    .call(xAxis);
+                </code></pre>
+                <p><strong>Why?</strong> Scales map data values to screen coordinates.</p>
+            </section>
+
+            <!-- Slide 5: Creating Interactive Elements -->
+            <section>
+                <h2>4. Creating Interactive Elements</h2>
+                <pre><code data-trim data-line-numbers="1-8" class="javascript">
+svg.selectAll("circle")
+    .on("mouseover", function() {
+        d3.select(this).attr("fill", "red");
+    })
+    .on("mouseout", function() {
+        d3.select(this).attr("fill", "blue");
+    });
+                </code></pre>
+                <p><strong>Why?</strong> Event listeners make visualizations interactive.</p>
+            </section>
+
+            <!-- Slide 6: Adding Transitions and Animations -->
+            <section>
+                <h2>5. Adding Transitions and Animations</h2>
+                <pre><code data-trim data-line-numbers="1-6" class="javascript">
+svg.selectAll("circle")
+    .transition()
+    .duration(1000)
+    .attr("r", 20);
+                </code></pre>
+                <p><strong>Why?</strong> Smooth animations enhance user experience.</p>
+            </section>
+
+            <!-- Slide 7: Run Example -->
+            <section>
+                <h2>6. Run Example</h2>
+                <button onclick="runD3Example()" style="padding: 10px; cursor: pointer;">Run Code</button>
+                <svg id="d3-output" width="500" height="300" style="border: 1px solid black;"></svg>
+
+                <script>
+                    function runD3Example() {
+                        const svg = d3.select("#d3-output");
+
+                        // Sample data
+                        const data = [50, 150, 250, 350, 450];
+
+                        // Append circles
+                        const circles = svg.selectAll("circle")
+                            .data(data)
+                            .enter()
+                            .append("circle")
+                            .attr("cx", d => d)
+                            .attr("cy", 100)
+                            .attr("r", 10)
+                            .attr("fill", "blue");
+
+                        // Add interactivity
+                        circles.on("mouseover", function() {
+                            d3.select(this).attr("fill", "red");
+                        }).on("mouseout", function() {
+                            d3.select(this).attr("fill", "blue");
+                        });
+
+                        // Add transition
+                        circles.transition()
+                            .duration(1000)
+                            .attr("r", 20);
+                    }
+                </script>
+            </section>
+            <!-- Slide 1: Title -->
+            <section>
+                <h1>Examples of D3.js Visualizations</h1>
+                <p>Real-world interactive visualizations made with D3</p>
+            </section>
+
+            <!-- Slide 2: D3 Visualization Gallery -->
+            <section>
+                <h2>1. D3 Visualization Gallery</h2>
+                <p>A curated gallery of different D3.js visualizations.</p>
+                <p><a href="https://observablehq.com/@d3/gallery" target="_blank">View Gallery</a></p>
+                <img src="https://static.observableusercontent.com/thumbnail/ebffce31bb8f963b0235c6bb86f938057ed0a603bf8b3d47cf4ef7d32f67f3a8.jpg" width="600">
+            </section>
+
+            <!-- Slide 3: England & Wales Baby Names -->
+            <section>
+                <h2>2. England & Wales Baby Names</h2>
+                <p>An interactive visualization of baby name trends.</p>
+                <p><a href="https://names.darkgreener.com/" target="_blank">Explore Visualization</a></p>
+                <img src="https://names.darkgreener.com/static/img/share-image.png" width="600">
+            </section>
+
+            <!-- Slide 4: 512 Paths to the White House -->
+            <section>
+                <h2>3. 512 Paths to the White House</h2>
+                <p>A famous election visualization from The New York Times.</p>
+                <p><a href="https://archive.nytimes.com/www.nytimes.com/interactive/2012/11/02/us/politics/paths-to-the-white-house.html" target="_blank">View Interactive Graphic</a></p>
+                <img src="https://static01.nyt.com/images/2012/11/02/us/politics/paths-slide-ZD4T/paths-slide-ZD4T-superJumbo.jpg" width="600">
+            </section>
+
+            <!-- Slide 5: CodePen Examples -->
+            <section>
+                <h2>4. CodePen D3 Examples</h2>
+                <p>Explore hundreds of D3.js visualizations on CodePen.</p>
+                <p><a href="https://codepen.io/search/pens/?limit=all&page=2&q=d3" target="_blank">Browse CodePen D3 Examples</a></p>
+                <img src="https://blog.codepen.io/wp-content/uploads/2022/09/codepen-wordmark-display-inside-white@10x.png" width="400">
+            </section>
+
+            <!-- Slide 6: Step-by-Step D3 Examples -->
+            <section>
+                <h2>5. Step-by-Step D3 Examples</h2>
+                <p>Learn how to build interactive D3 charts step by step.</p>
+                <p><a href="https://observablehq.com/@stanfordvis/making-d3-charts-interactive" target="_blank">View Tutorial</a></p>
+                <img src="https://static.observableusercontent.com/thumbnail/2a1cfb2bc53b7488b08f546bd4c1b791e3186c10d42e9d8baf60b64a27b70dc0.jpg" width="600">
+            </section>
+
+            <!-- Slide 7: Run Example -->
+            <section>
+                <h2>6. Run a Simple D3 Example</h2>
+                <button onclick="runD3Example()" style="padding: 10px; cursor: pointer;">Run Code</button>
+                <svg id="d3-output" width="500" height="300" style="border: 1px solid black;"></svg>
+
+                <script src="https://d3js.org/d3.v7.min.js"></script>
+                <script>
+                    function runD3Example() {
+                        const svg = d3.select("#d3-output");
+
+                        // Sample data
+                        const data = [50, 150, 250, 350, 450];
+
+                        // Append circles
+                        const circles = svg.selectAll("circle")
+                            .data(data)
+                            .enter()
+                            .append("circle")
+                            .attr("cx", d => d)
+                            .attr("cy", 100)
+                            .attr("r", 10)
+                            .attr("fill", "blue");
+
+                        // Add interactivity
+                        circles.on("mouseover", function() {
+                            d3.select(this).attr("fill", "red");
+                        }).on("mouseout", function() {
+                            d3.select(this).attr("fill", "blue");
+                        });
+
+                        // Add transition
+                        circles.transition()
+                            .duration(1000)
+                            .attr("r", 20);
+                    }
+                </script>
+            </section>
 			</div>
 		</div>
 
