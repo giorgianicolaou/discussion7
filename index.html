@@ -132,27 +132,38 @@ console.log(myLet);
             </section>
 
             <!-- Slide 6: Run Example -->
-            <section>
-                <h2>Run Example</h2>
-                <button onclick="runHoistingExample()">Run Code</button>
-                <div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px;"></div>
-                <script>
-                    function runHoistingExample() {
-                        const outputDiv = document.getElementById("output");
-                        outputDiv.innerHTML = ""; // Clear previous output
-
-                        try {
-                            console.log(myVar);
-                            outputDiv.innerHTML += "<p>undefined (hoisted)</p>";
-
-                            var myVar = 10;
-                            console.log(myVar);
-                            outputDiv.innerHTML += "<p>10</p>";
-                        } catch (error) {
-                            outputDiv.innerHTML += `<p style="color: red;">${error}</p>`;
-                        }
-                    }
-                </script>
+			<!-- <section>
+				<h2>Run Example</h2>
+				<button onclick="runHoistingExample()">Run Code</button>
+				<div id="output1" style="background: #222; color: #fff; padding: 10px; margin-top: 10px;"></div>
+			
+				<script>
+					function runHoistingExample() {
+						const outputDiv = document.getElementById("output");
+						outputDiv.innerHTML = ""; // Clear previous output
+			
+						try {
+							// Declare an empty log array to capture messages
+							let logs = [];
+			
+							// Log messages and also append them to logs array
+							logs.push("Trying to log myVar before declaration...");
+							logs.push(`myVar before declaration: ${typeof myVar !== 'undefined' ? myVar : "undefined (hoisted)"}`);
+			
+							var myVar = 10; // Variable declaration (hoisted but undefined before execution)
+			
+							logs.push("Assigning myVar to 10...");
+							logs.push(`myVar after declaration: ${myVar}`);
+			
+							// Display the output inside the outputDiv
+							outputDiv.innerHTML = logs.map(log => `<p>${log}</p>`).join('');
+						} catch (error) {
+							outputDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+						}
+					}
+				</script>
+			</section>
+			 -->
 				</section>
             <!-- Slide 1: Title -->
             <section>
@@ -208,7 +219,7 @@ RETURN: first() -> removes from stack
             </section>
 
             <!-- Slide 5: Run Example -->
-            <section>
+            <!-- <section>
                 <h2>Run Example</h2>
                 <button onclick="runCallStackExample()">Run Code</button>
                 <div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px;"></div>
@@ -237,7 +248,7 @@ RETURN: first() -> removes from stack
                         logMessage("End");
                     }
                 </script>
-            </section>		
+            </section>		 -->
             <!-- Slide 1: Title -->
             <section>
                 <h1>Order of Execution in Promises and Async Operations</h1>
@@ -283,7 +294,7 @@ console.log("End");
             </section>
 
             <!-- Slide 5: Run Example -->
-            <section>
+            <!-- <section>
                 <h2>Run Example</h2>
                 <button onclick="runAsyncExample()">Run Code</button>
                 <div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px;"></div>
@@ -309,7 +320,7 @@ console.log("End");
                         outputDiv.innerHTML += "<p>End</p>";
                     }
                 </script>
-            </section>
+            </section> -->
             <section>
                 <h1>Order of Execution in Data Loading</h1>
                 <p>Fetch API & Promises in JavaScript</p>
@@ -355,7 +366,7 @@ console.log("End");
             </section>
 
             <!-- Slide 5: Run Example -->
-            <section>
+            <!-- <section>
                 <h2>Run Example</h2>
                 <button onclick="runFetchExample()">Run Code</button>
                 <div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px;"></div>
@@ -378,7 +389,7 @@ console.log("End");
                         outputDiv.innerHTML += "<p>End</p>";
                     }
                 </script>
-            </section>
+            </section> -->
             <!-- Slide 1: Title -->
             <section>
                 <h1>Function Structure in JavaScript</h1>
@@ -447,7 +458,7 @@ console.log(operate(10, 5, (x, y) => x - y)); // 5
             </section>
 
             <!-- Slide 7: Run Example -->
-            <section>
+            <!-- <section>
                 <h2>6. Run Example</h2>
                 <button onclick="runFunctionExample()" style="padding: 10px; cursor: pointer;">Run Code</button>
                 <div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px; min-height: 50px;"></div>
@@ -468,7 +479,7 @@ console.log(operate(10, 5, (x, y) => x - y)); // 5
                         document.getElementById("output").innerHTML = result;
                     }
                 </script>
-            </section>
+            </section> -->
 			            <!-- Slide 1: Title -->
 						<section>
 							<h1>Where to Place Functions in JavaScript</h1>
@@ -478,7 +489,7 @@ console.log(operate(10, 5, (x, y) => x - y)); // 5
 						<!-- Slide 2: Global vs. Local Scope -->
 						<section>
 							<h2>1. Global vs. Local Scope</h2>
-							<pre><code data-trim data-line-numbers="1-6" class="javascript">
+							<pre><code data-trim data-line-numbers="1-12" class="javascript">
 			// Global Function (Avoid excessive usage)
 			function globalFunction() {
 				console.log("I am global!");
@@ -498,7 +509,7 @@ console.log(operate(10, 5, (x, y) => x - y)); // 5
 						<!-- Slide 3: Separating Logic, Handlers, and API Calls -->
 						<section>
 							<h2>2. Separating Logic, Handlers, and API Calls</h2>
-							<pre><code data-trim data-line-numbers="1-10" class="javascript">
+							<pre><code data-trim data-line-numbers="1-16" class="javascript">
 			// Business Logic (Pure Functions)
 			function calculateTotal(price, tax) {
 				return price + (price * tax);
@@ -522,7 +533,7 @@ console.log(operate(10, 5, (x, y) => x - y)); // 5
 						<!-- Slide 4: Using the Module Pattern -->
 						<section>
 							<h2>3. The Module Pattern</h2>
-							<pre><code data-trim data-line-numbers="1-10" class="javascript">
+							<pre><code data-trim data-line-numbers="1-14" class="javascript">
 			const ShoppingCart = (function() {
 				let cart = [];
 			
@@ -544,7 +555,7 @@ console.log(operate(10, 5, (x, y) => x - y)); // 5
 						<!-- Slide 5: Using ES6 Modules -->
 						<section>
 							<h2>4. Using ES6 Modules</h2>
-							<pre><code data-trim data-line-numbers="1-4" class="javascript">
+							<pre><code data-trim data-line-numbers="1-8" class="javascript">
 			// utils.js (Exporting Functions)
 			export function add(a, b) {
 				return a + b;
@@ -560,7 +571,7 @@ console.log(operate(10, 5, (x, y) => x - y)); // 5
 						<!-- Slide 6: Organizing JavaScript Files -->
 						<section>
 							<h2>5. Where to Put Functions in a Project</h2>
-							<pre><code data-trim data-line-numbers="1-6" class="javascript">
+							<pre><code data-trim data-line-numbers="1-10" class="javascript">
 			// File Structure
 			/project-root
 			  /js
@@ -576,7 +587,7 @@ console.log(operate(10, 5, (x, y) => x - y)); // 5
 						</section>
 			
 						<!-- Slide 7: Run Example -->
-						<section>
+						<!-- <section>
 							<h2>6. Run Example</h2>
 							<button onclick="runFunctionExample()" style="padding: 10px; cursor: pointer;">Run Code</button>
 							<div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px; min-height: 50px;"></div>
@@ -603,7 +614,7 @@ console.log(operate(10, 5, (x, y) => x - y)); // 5
 									fetchData();
 								}
 							</script>
-						</section>
+						</section> -->
             <!-- Slide 1: Title -->
             <section>
                 <h1>Common Workflow for Interactive D3.js Visualizations</h1>
@@ -627,7 +638,7 @@ console.log("SVG created!");
             <!-- Slide 3: Binding Data to Elements -->
             <section>
                 <h2>2. Binding Data to Elements</h2>
-                <pre><code data-trim data-line-numbers="1-7" class="javascript">
+                <pre><code data-trim data-line-numbers="1-11" class="javascript">
 const data = [10, 30, 50, 70, 90];
 
 // Bind data and create circles
@@ -646,7 +657,7 @@ svg.selectAll("circle")
             <!-- Slide 4: Adding Scales and Axes -->
             <section>
                 <h2>3. Adding Scales and Axes</h2>
-                <pre><code data-trim data-line-numbers="1-8" class="javascript">
+                <pre><code data-trim data-line-numbers="1-9" class="javascript">
 const xScale = d3.scaleLinear()
     .domain([0, 100])
     .range([0, 400]);
@@ -688,7 +699,7 @@ svg.selectAll("circle")
             </section>
 
             <!-- Slide 7: Run Example -->
-            <section>
+            <!-- <section>
                 <h2>6. Run Example</h2>
                 <button onclick="runD3Example()" style="padding: 10px; cursor: pointer;">Run Code</button>
                 <svg id="d3-output" width="500" height="300" style="border: 1px solid black;"></svg>
@@ -723,7 +734,7 @@ svg.selectAll("circle")
                             .attr("r", 20);
                     }
                 </script>
-            </section>
+            </section> -->
             <!-- Slide 1: Title -->
             <section>
                 <h1>Examples of D3.js Visualizations</h1>
@@ -735,7 +746,7 @@ svg.selectAll("circle")
                 <h2>1. D3 Visualization Gallery</h2>
                 <p>A curated gallery of different D3.js visualizations.</p>
                 <p><a href="https://observablehq.com/@d3/gallery" target="_blank">View Gallery</a></p>
-                <img src="https://static.observableusercontent.com/thumbnail/ebffce31bb8f963b0235c6bb86f938057ed0a603bf8b3d47cf4ef7d32f67f3a8.jpg" width="600">
+                <!-- <img src="https://static.observableusercontent.com/thumbnail/ebffce31bb8f963b0235c6bb86f938057ed0a603bf8b3d47cf4ef7d32f67f3a8.jpg" width="600"> -->
             </section>
 
             <!-- Slide 3: England & Wales Baby Names -->
@@ -743,7 +754,7 @@ svg.selectAll("circle")
                 <h2>2. England & Wales Baby Names</h2>
                 <p>An interactive visualization of baby name trends.</p>
                 <p><a href="https://names.darkgreener.com/" target="_blank">Explore Visualization</a></p>
-                <img src="https://names.darkgreener.com/static/img/share-image.png" width="600">
+                <!-- <img src="https://names.darkgreener.com/static/img/share-image.png" width="600"> -->
             </section>
 
             <!-- Slide 4: 512 Paths to the White House -->
@@ -751,7 +762,7 @@ svg.selectAll("circle")
                 <h2>3. 512 Paths to the White House</h2>
                 <p>A famous election visualization from The New York Times.</p>
                 <p><a href="https://archive.nytimes.com/www.nytimes.com/interactive/2012/11/02/us/politics/paths-to-the-white-house.html" target="_blank">View Interactive Graphic</a></p>
-                <img src="https://static01.nyt.com/images/2012/11/02/us/politics/paths-slide-ZD4T/paths-slide-ZD4T-superJumbo.jpg" width="600">
+                <!-- <img src="https://static01.nyt.com/images/2012/11/02/us/politics/paths-slide-ZD4T/paths-slide-ZD4T-superJumbo.jpg" width="600"> -->
             </section>
 
             <!-- Slide 5: CodePen Examples -->
@@ -759,7 +770,7 @@ svg.selectAll("circle")
                 <h2>4. CodePen D3 Examples</h2>
                 <p>Explore hundreds of D3.js visualizations on CodePen.</p>
                 <p><a href="https://codepen.io/search/pens/?limit=all&page=2&q=d3" target="_blank">Browse CodePen D3 Examples</a></p>
-                <img src="https://blog.codepen.io/wp-content/uploads/2022/09/codepen-wordmark-display-inside-white@10x.png" width="400">
+                <!-- <img src="https://blog.codepen.io/wp-content/uploads/2022/09/codepen-wordmark-display-inside-white@10x.png" width="400"> -->
             </section>
 
             <!-- Slide 6: Step-by-Step D3 Examples -->
@@ -767,11 +778,11 @@ svg.selectAll("circle")
                 <h2>5. Step-by-Step D3 Examples</h2>
                 <p>Learn how to build interactive D3 charts step by step.</p>
                 <p><a href="https://observablehq.com/@stanfordvis/making-d3-charts-interactive" target="_blank">View Tutorial</a></p>
-                <img src="https://static.observableusercontent.com/thumbnail/2a1cfb2bc53b7488b08f546bd4c1b791e3186c10d42e9d8baf60b64a27b70dc0.jpg" width="600">
+                <!-- <img src="https://static.observableusercontent.com/thumbnail/2a1cfb2bc53b7488b08f546bd4c1b791e3186c10d42e9d8baf60b64a27b70dc0.jpg" width="600"> -->
             </section>
 
             <!-- Slide 7: Run Example -->
-            <section>
+            <!-- <section>
                 <h2>6. Run a Simple D3 Example</h2>
                 <button onclick="runD3Example()" style="padding: 10px; cursor: pointer;">Run Code</button>
                 <svg id="d3-output" width="500" height="300" style="border: 1px solid black;"></svg>
@@ -807,7 +818,7 @@ svg.selectAll("circle")
                             .attr("r", 20);
                     }
                 </script>
-            </section>
+            </section>		 -->
 			</div>
 		</div>
 
