@@ -218,6 +218,122 @@ RETURN: first() -> removes from stack
                 </code></pre>
             </section>
 
+			            <!-- Slide 1: Title -->
+						<section>
+							<h1>Understanding Async/Await in JavaScript</h1>
+							<p>How async functions work and why they are useful</p>
+						</section>
+			
+						<!-- Slide 2: What is Async/Await? -->
+						<section>
+							<h2>1. What is Async/Await?</h2>
+							<ul>
+								<li><strong>async</strong> functions return a **Promise**.</li>
+								<li><strong>await</strong> pauses execution until the Promise resolves.</li>
+								<li>Makes asynchronous code **look synchronous**.</li>
+								<li>Reduces callback hell and improves readability.</li>
+							</ul>
+						</section>
+			
+						<!-- Slide 3: How Async/Await Works -->
+						<section>
+							<h2>2. How Async/Await Works</h2>
+							<pre><code data-trim data-line-numbers="1-7" class="javascript">
+			async function fetchData() {
+				let response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+				let data = await response.json();
+				console.log(data);
+			}
+			
+			fetchData();
+							</code></pre>
+							<p><strong>Key Point:</strong> `await` makes JavaScript wait for the fetch request to complete.</p>
+						</section>
+			
+						<!-- Slide 4: Converting Promises to Async/Await -->
+						<section>
+							<h2>3. Converting Promises to Async/Await</h2>
+							<pre><code data-trim data-line-numbers="1-18" class="javascript">
+			// Using Promises
+			fetch("https://jsonplaceholder.typicode.com/todos/1")
+				.then(response => response.json())
+				.then(data => console.log(data))
+				.catch(error => console.error(error));
+			
+			// Using Async/Await
+			async function fetchData() {
+				try {
+					let response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+					let data = await response.json();
+					console.log(data);
+				} catch (error) {
+					console.error(error);
+				}
+			}
+			
+			fetchData();
+							</code></pre>
+							<p><strong>Why use Async/Await?</strong> More readable, avoids deeply nested `.then()` calls.</p>
+						</section>
+			
+						<!-- Slide 5: Handling Errors in Async/Await -->
+						<section>
+							<h2>4. Handling Errors in Async/Await</h2>
+							<pre><code data-trim data-line-numbers="1-12" class="javascript">
+			async function fetchData() {
+				try {
+					let response = await fetch("https://invalid-url.com/data");
+					if (!response.ok) throw new Error("Failed to fetch data");
+					let data = await response.json();
+					console.log(data);
+				} catch (error) {
+					console.error("Error:", error.message);
+				}
+			}
+			
+			fetchData();
+							</code></pre>
+							<p><strong>Tip:</strong> Always use `try/catch` to handle errors properly.</p>
+						</section>
+			
+						<!-- Slide 6: Real-World Example -->
+						<section>
+							<h2>5. Real-World Use Case</h2>
+							<p>Async/Await is useful for:</p>
+							<ul>
+								<li>Fetching API data</li>
+								<li>Database queries</li>
+								<li>Processing large datasets asynchronously</li>
+								<li>Handling user authentication flows</li>
+							</ul>
+						</section>
+			
+						<!-- Slide 7: Run Example -->
+						<!-- <section>
+							<h2>6. Run Example</h2>
+							<button onclick="runAsyncExample()" style="padding: 10px; cursor: pointer;">Run Code</button>
+							<div id="output" style="background: #222; color: #fff; padding: 10px; margin-top: 10px; min-height: 50px;"></div>
+			
+							<script>
+								async function runAsyncExample() {
+									const outputDiv = document.getElementById("output");
+									outputDiv.innerHTML = ""; 
+			
+									try {
+										outputDiv.innerHTML += "<p>Fetching data...</p>";
+			
+										let response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+										let data = await response.json();
+			
+										console.log("Data Loaded:", data);
+										outputDiv.innerHTML += `<p>Data: ${JSON.stringify(data)}</p>`;
+									} catch (error) {
+										console.error("Error:", error.message);
+										outputDiv.innerHTML += `<p style="color: red;">Error: ${error.message}</p>`;
+									}
+								}
+							</script>
+						</section> -->
             <!-- Slide 5: Run Example -->
             <!-- <section>
                 <h2>Run Example</h2>
